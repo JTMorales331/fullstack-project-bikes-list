@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"}],"uuid":"fb1fc6164cea464eabf0c684442ffc18","collectionName":"fullstack_prog_bikes","type":"collection"}
