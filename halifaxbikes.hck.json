@@ -158,6 +158,14 @@
           "type": "string",
           "GUID": "da4ef2b3-39ae-4b64-8d34-f5e3d3aedf35",
           "error": {}
+        },
+        {
+          "name": "price",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "numeric",
+          "error": {},
+          "GUID": "3a4d916e-e413-43a1-9282-e6991649802b"
         }
       ],
       "definitions": {
@@ -228,7 +236,8 @@
     "2f9bffb5-7ed7-4848-9f36-ae5b295f11bc": "color",
     "0e089190-f938-4d89-a318-831c33dfff76": "cassette",
     "0534b061-ad50-476b-892f-afbd68d2b0cd": "tags",
-    "da4ef2b3-39ae-4b64-8d34-f5e3d3aedf35": "bike_image"
+    "da4ef2b3-39ae-4b64-8d34-f5e3d3aedf35": "bike_image",
+    "3a4d916e-e413-43a1-9282-e6991649802b": "price"
   },
   "definitions": {
     "type": "definitions",
@@ -253,7 +262,7 @@
   "creationTS": "2025-09-16T11:58:25.979Z",
   "GUID": "d903efec-6b1b-47bd-baf3-4a44a2b8c0bc",
   "isLineageEnabled": false,
-  "lastModifTS": "2025-09-16T12:21:17.106Z",
+  "lastModifTS": "2025-09-16T23:37:08.459Z",
   "persistenceSchemaVersion": "8",
   "isCreatedByPlugin": true,
   "pluginInformation": {
@@ -262,6 +271,7 @@
   "applicationInformation": {
     "version": "8.4.2"
   },
+  "hackoladeMeta": {},
   "settings": {
     "centralPane": {
       "dbLevel": {
