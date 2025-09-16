@@ -1,0 +1,320 @@
+{
+  "modelName": "New Model",
+  "collections": [
+    {
+      "collectionName": "Halifax Bikes",
+      "type": "object",
+      "properties": [
+        {
+          "name": "brand",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "650843bb-e021-4d5b-93dd-0436bc54e22c",
+          "error": {}
+        },
+        {
+          "name": "model",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "a6f741fb-bc96-4ac8-97f1-787a621d73f7",
+          "error": {}
+        },
+        {
+          "name": "size",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "553c5708-7a26-4ebe-8f8d-8a1128848d6d",
+          "error": {}
+        },
+        {
+          "name": "color",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "2f9bffb5-7ed7-4848-9f36-ae5b295f11bc",
+          "error": {}
+        },
+        {
+          "name": "date_received_in_store",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "date",
+          "primaryKey": false,
+          "error": {},
+          "GUID": "d1e25ee0-a43d-4d92-9fd4-e530cccec3d9"
+        },
+        {
+          "name": "date_sold",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "date",
+          "primaryKey": false,
+          "error": {},
+          "GUID": "d10148fe-a614-4482-b3dc-641483d4546c"
+        },
+        {
+          "name": "groupset",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "document",
+          "properties": [
+            {
+              "name": "crank",
+              "hackoladeMeta": {},
+              "isActivated": true,
+              "type": "document",
+              "properties": [
+                {
+                  "hackoladeMeta": {},
+                  "isActivated": true,
+                  "type": "string",
+                  "GUID": "8db385a3-1a61-4b31-9fda-07f438f187a0",
+                  "name": "model",
+                  "error": {}
+                },
+                {
+                  "name": "crank_arm_length_mm",
+                  "hackoladeMeta": {},
+                  "isActivated": true,
+                  "type": "numeric",
+                  "error": {},
+                  "GUID": "0604a759-2aa0-47c7-bfdb-dccc6392cb6e"
+                },
+                {
+                  "name": "chainrings",
+                  "hackoladeMeta": {},
+                  "isActivated": true,
+                  "type": "string",
+                  "GUID": "c0ba3af6-fe26-452e-8d35-0b4d681cb486",
+                  "error": {}
+                }
+              ],
+              "additionalProperties": false,
+              "error": {},
+              "GUID": "7784c5d3-f948-4987-94d0-9f68ac16412e"
+            },
+            {
+              "name": "sti_levers",
+              "hackoladeMeta": {},
+              "isActivated": true,
+              "type": "string",
+              "GUID": "281a1a27-96d3-4229-a5a0-ee0d7580c680",
+              "error": {}
+            },
+            {
+              "name": "front_derailleur",
+              "hackoladeMeta": {},
+              "isActivated": true,
+              "type": "string",
+              "GUID": "4685dc25-f1a5-4091-b17e-84f0f5a11397",
+              "error": {}
+            },
+            {
+              "name": "rear_derailleur",
+              "hackoladeMeta": {},
+              "isActivated": true,
+              "type": "string",
+              "GUID": "9d67f19e-6cf5-42ae-aa3f-41e43b7fc911",
+              "error": {}
+            },
+            {
+              "name": "cassette",
+              "hackoladeMeta": {},
+              "isActivated": true,
+              "type": "string",
+              "GUID": "0e089190-f938-4d89-a318-831c33dfff76",
+              "error": {}
+            }
+          ],
+          "additionalProperties": false,
+          "error": {},
+          "GUID": "b8ae78c7-c41e-48b7-8cc6-f1bfea4f5f5d"
+        },
+        {
+          "name": "tags",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "array",
+          "properties": [
+            {
+              "hackoladeMeta": {},
+              "isActivated": true,
+              "type": "string",
+              "GUID": "33809e45-cb78-4ce5-917e-d397ed391e5c",
+              "arrayItem": true
+            }
+          ],
+          "additionalItems": true,
+          "error": {},
+          "GUID": "0534b061-ad50-476b-892f-afbd68d2b0cd"
+        },
+        {
+          "name": "bike_image",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "da4ef2b3-39ae-4b64-8d34-f5e3d3aedf35",
+          "error": {}
+        }
+      ],
+      "definitions": {
+        "type": "definitions",
+        "properties": [],
+        "GUID": "53fd934a-ddda-4a49-9d63-7042a476e766"
+      },
+      "isActivated": true,
+      "additionalProperties": false,
+      "validationLevel": "Off",
+      "validationAction": "Warn",
+      "storageEngineName": "WiredTiger",
+      "collectionUsers": [],
+      "indexes": [],
+      "collation": {},
+      "sharding": {
+        "unique": true,
+        "collation": "null"
+      },
+      "GUID": "62d6e689-92e9-4c3f-a098-bf1cc15eea44",
+      "bucketId": "884a274e-31f5-434a-a9c0-d99b8a5b4678",
+      "hackoladeMeta": {
+        "validationErrors": {}
+      }
+    }
+  ],
+  "buckets": [
+    {
+      "name": "BikeStore",
+      "type": "bucket",
+      "collectionIds": [
+        "62d6e689-92e9-4c3f-a098-bf1cc15eea44"
+      ],
+      "backgroundColor": {
+        "r": 129,
+        "g": 212,
+        "b": 250,
+        "a": 1
+      },
+      "show": true,
+      "isActivated": true,
+      "GUID": "884a274e-31f5-434a-a9c0-d99b8a5b4678",
+      "hackoladeMeta": {
+        "validationErrors": {}
+      }
+    }
+  ],
+  "views": [],
+  "relationships": [],
+  "users": [],
+  "diagramViews": [],
+  "idToNameHashTable": {
+    "884a274e-31f5-434a-a9c0-d99b8a5b4678": "BikeStore",
+    "62d6e689-92e9-4c3f-a098-bf1cc15eea44": "Halifax Bikes",
+    "650843bb-e021-4d5b-93dd-0436bc54e22c": "brand",
+    "a6f741fb-bc96-4ac8-97f1-787a621d73f7": "model",
+    "553c5708-7a26-4ebe-8f8d-8a1128848d6d": "size",
+    "d1e25ee0-a43d-4d92-9fd4-e530cccec3d9": "date_received_in_store",
+    "d10148fe-a614-4482-b3dc-641483d4546c": "date_sold",
+    "b8ae78c7-c41e-48b7-8cc6-f1bfea4f5f5d": "groupset",
+    "7784c5d3-f948-4987-94d0-9f68ac16412e": "crank",
+    "8db385a3-1a61-4b31-9fda-07f438f187a0": "model",
+    "0604a759-2aa0-47c7-bfdb-dccc6392cb6e": "crank_arm_length_mm",
+    "c0ba3af6-fe26-452e-8d35-0b4d681cb486": "chainrings",
+    "281a1a27-96d3-4229-a5a0-ee0d7580c680": "sti_levers",
+    "4685dc25-f1a5-4091-b17e-84f0f5a11397": "front_derailleur",
+    "9d67f19e-6cf5-42ae-aa3f-41e43b7fc911": "rear_derailleur",
+    "2f9bffb5-7ed7-4848-9f36-ae5b295f11bc": "color",
+    "0e089190-f938-4d89-a318-831c33dfff76": "cassette",
+    "0534b061-ad50-476b-892f-afbd68d2b0cd": "tags",
+    "da4ef2b3-39ae-4b64-8d34-f5e3d3aedf35": "bike_image"
+  },
+  "definitions": {
+    "type": "definitions",
+    "properties": [],
+    "GUID": "633b0e96-ed72-4ce2-b15f-9fa0e41699d6"
+  },
+  "polyglotDefinitions": {
+    "type": "polyglotDefinitions",
+    "properties": [],
+    "GUID": "fe36c148-30fc-4930-be09-116297703e3a"
+  },
+  "externalDefinitions": {
+    "type": "externalDefinitions",
+    "properties": [],
+    "GUID": "d194ad24-a10d-4277-b4eb-8c50048b03ab"
+  },
+  "sources": [],
+  "decorativeSymbols": [],
+  "dbVersion": "v7.x",
+  "dbVendor": "MongoDB",
+  "appTarget": "MONGODB",
+  "creationTS": "2025-09-16T11:58:25.979Z",
+  "GUID": "d903efec-6b1b-47bd-baf3-4a44a2b8c0bc",
+  "isLineageEnabled": false,
+  "lastModifTS": "2025-09-16T12:21:17.106Z",
+  "persistenceSchemaVersion": "8",
+  "isCreatedByPlugin": true,
+  "pluginInformation": {
+    "pluginEngineVersion": "1.0.0"
+  },
+  "applicationInformation": {
+    "version": "8.4.2"
+  },
+  "settings": {
+    "centralPane": {
+      "dbLevel": {
+        "erd": [
+          {
+            "GUID": "62d6e689-92e9-4c3f-a098-bf1cc15eea44",
+            "x": 1109,
+            "y": 1111,
+            "width": 179,
+            "height": 86,
+            "color": {}
+          }
+        ],
+        "erdDefinitions": {
+          "erd": [],
+          "rootPath": [],
+          "entities": [],
+          "decorativeSymbols": []
+        },
+        "buckets": [
+          {
+            "x": 1045,
+            "y": 1047,
+            "GUID": "884a274e-31f5-434a-a9c0-d99b8a5b4678"
+          }
+        ],
+        "collapsedNodes": [],
+        "activeRelationship": "",
+        "activeRelationshipFields": {
+          "childField": [],
+          "parentField": []
+        },
+        "selectedCollections": [],
+        "displayColorPicker": false,
+        "graphView": {
+          "erd": [],
+          "buckets": [],
+          "decorativeSymbols": [],
+          "forceLayout": true,
+          "defaultLinkLength": 300
+        },
+        "diagramViews": [],
+        "decorativeSymbols": [],
+        "nestedCollectionsLayout": "horizontal",
+        "options": [],
+        "relationshipUpdateDisabled": false
+      },
+      "collectionLevel": {},
+      "changed": false
+    },
+    "dtDiagram": {
+      "collapsedNodes": [],
+      "shouldDistributeCollections": false
+    }
+  }
+}
