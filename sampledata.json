@@ -1,0 +1,212 @@
+[
+  {
+    "brand": "Trek",
+    "model": "Domane SL6",
+    "size": "54cm",
+    "color": "Red/Black",
+    "date_sold": null,
+    "groupset": {
+      "crank": {
+        "model": "Sram Rival eTap AXS",
+        "crank_arm_length_mm": 165,
+        "chainrings": "46-33T"
+      },
+      "sti_levers": "Sram Rival eTap AXS 12-Speed",
+      "front_derailleur": "Sram Rival eTap AXS 12-Speed",
+      "rear_derailleur": "Sram Rival eTap AXS 12-Speed",
+      "cassette": "11-36T"
+    },
+    "tags": ["road", "carbon", "endurance"],
+    "price": 4699,
+    "bike_image": "https://d2yn9m4p3q9iyv.cloudfront.net/trek/2024/domane-sl-6-axs-gen-4/thumbs/1000/45a55.webp"
+  },
+  {
+    "brand": "Giant",
+    "model": "Defy Advanced 2",
+    "size": "56cm",
+    "color": "Black",
+    "date_sold": "2025-09-10T00:00:00Z",
+    "groupset": {
+      "crank": {
+        "model": "Shimano 105",
+        "crank_arm_length_mm": 172.5,
+        "chainrings": "50-34T"
+      },
+      "sti_levers": "Shimano 105 12-Speed",
+      "front_derailleur": "Shimano 105 12-Speed",
+      "rear_derailleur": "Shimano 105 12-Speed",
+      "cassette": "11-36T"
+    },
+    "tags": ["carbon", "endurance", "all-rounder", "road"],
+    "price": 2699,
+    "bike_image": "https://d2yn9m4p3q9iyv.cloudfront.net/giant/2026/defy-advanced-2/thumbs/1000/e410c.webp"
+  },
+  {
+    "brand": "Merida",
+    "model": "Crossway 10",
+    "size": "51cm",
+    "color": "Black",
+    "date_sold": null,
+    "groupset": {
+      "crank": {
+        "model": "Shimano TY301",
+        "crank_arm_length_mm": 175,
+        "chainrings": "48-38-28T"
+      },
+      "sti_levers": "Shimano ST-EF500",
+      "front_derailleur": "Shimano RD-M310-7",
+      "rear_derailleur": "Shimano FD-TY510-3",
+      "cassette": "11-36T"
+    },
+    "tags": ["aluminum", "hardtail", "touring", "all-rounder"],
+    "price": 1200,
+    "bike_image": "https://d2yn9m4p3q9iyv.cloudfront.net/merida/2026/crossway-10/thumbs/1000/3f9b0.webp"
+  },
+  {
+    "brand": "Giant",
+    "model": "Glory Advanced",
+    "size": "SM/MD",
+    "color": "Black/Gold",
+    "date_sold": null,
+    "groupset": {
+      "crank": {
+        "model": "TruVativ Descendent DH",
+        "crank_arm_length_mm": 165,
+        "chainrings": "34T"
+      },
+      "sti_levers": "SRAM GX Eagle DH 1x7",
+      "front_derailleur": null,
+      "rear_derailleur": "SRAM GX Eagle DH",
+      "cassette": "11-25T"
+    },
+    "tags": ["carbon", "offroad", "enduro", "trail"],
+    "price": 1200,
+    "bike_image": "https://d2yn9m4p3q9iyv.cloudfront.net/giant/2025/glory-advanced/thumbs/1000/cb67c.webp"
+  },
+  {
+    "brand": "Merida",
+    "model": "Reacto 4000",
+    "size": "XXS",
+    "color": "Blue",
+    "date_sold": "2025-07-22T00:00:00Z",
+    "groupset": {
+      "crank": {
+        "model": "Shimano 105",
+        "crank_arm_length_mm": 165,
+        "chainrings": "52-36T"
+      },
+      "sti_levers": "Shimano 105 12-Speed",
+      "front_derailleur": "Shimano 105 12-Speed",
+      "rear_derailleur": "Shimano 105 12-Speed",
+      "cassette": "11-34T"
+    },
+    "tags": ["carbon", "aero", "road", "race"],
+    "price": 4503,
+    "bike_image": "https://d2yn9m4p3q9iyv.cloudfront.net/merida/2025/reacto-4000/thumbs/1000/73e32.webp"
+  },
+  {
+    "brand": "Trek",
+    "model": "Marlin 4 Gen 3",
+    "size": "XL",
+    "color": "Purple",
+    "date_sold": null,
+    "groupset": {
+      "crank": {
+        "model": "Prowheel Alloy",
+        "crank_arm_length_mm": 175,
+        "chainrings": "32T"
+      },
+      "sti_levers": "Shimano M315 8-Speed",
+      "front_derailleur": null,
+      "rear_derailleur": "Shimano ESSA U2000 8-Speed",
+      "cassette": "11-45T"
+    },
+    "tags": ["aluminum", "hardtail", "trail", "XC"],
+    "price": 749,
+    "bike_image": "https://d2yn9m4p3q9iyv.cloudfront.net/trek/2026/marlin-4-gen-3/thumbs/1000/db759.webp"
+  },
+  {
+    "brand": "Specialized",
+    "model": "Tarmac SL8 Expert",
+    "size": "56cm",
+    "color": "Gloss Carbon/Smoke/Chrome",
+    "date_sold": "2025-08-15T00:00:00Z",
+    "groupset": {
+      "crank": {
+        "model": "Shimano Ultegra R8100",
+        "crank_arm_length_mm": 172.5,
+        "chainrings": "52-36T"
+      },
+      "sti_levers": "Shimano Ultegra Di2 R8170 12-Speed",
+      "front_derailleur": "Shimano Ultegra Di2 R8150 12-Speed",
+      "rear_derailleur": "Shimano Ultegra Di2 R8150 12-Speed",
+      "cassette": "11-30T"
+    },
+    "tags": ["carbon", "road", "race", "climbing"],
+    "price": 7999,
+    "bike_image": "https://d2yn9m4p3q9iyv.cloudfront.net/specialized/2025/tarmac-sl8-expert-shimano-ultegra-di2/thumbs/1000/0dc3f.webp"
+  },
+  {
+    "brand": "Cannondale",
+    "model": "Synapse Carbon 2 RLE",
+    "size": "54cm",
+    "color": "Black",
+    "date_sold": null,
+    "groupset": {
+      "crank": {
+        "model": "Shimano Ultegra R8100",
+        "crank_arm_length_mm": 172.5,
+        "chainrings": "50-34T"
+      },
+      "sti_levers": "Shimano Ultegra Di2 R8170 12-Speed",
+      "front_derailleur": "Shimano Ultegra Di2 R8150 12-Speed",
+      "rear_derailleur": "Shimano Ultegra Di2 R8150 12-Speed",
+      "cassette": "11-34T"
+    },
+    "tags": ["carbon", "endurance", "road", "all-rounder"],
+    "price": 5995,
+    "bike_image": "https://d2yn9m4p3q9iyv.cloudfront.net/cannondale/2024/synapse-carbon-2-rle/thumbs/1000/e1e5b.webp"
+  },
+  {
+    "brand": "Cannondale",
+    "model": "Quick 4",
+    "size": "L",
+    "color": "Graphite",
+    "date_sold": null,
+    "groupset": {
+      "crank": {
+        "model": "Prowheel, 2-piece",
+        "crank_arm_length_mm": 175,
+        "chainrings": "46-30T"
+      },
+      "sti_levers": "microSHIFT Advent X 9-speed",
+      "front_derailleur": null,
+      "rear_derailleur": "microSHIFT Advent X 9-speed",
+      "cassette": "11-48T"
+    },
+    "tags": ["aluminum", "fitness", "commuter", "flat-bar"],
+    "price": 1295,
+    "bike_image": "https://d2yn9m4p3q9iyv.cloudfront.net/cannondale/2024/quick-4/thumbs/1000/2499c.webp"
+  },
+  {
+    "brand": "Giant",
+    "model": "TCR Advanced 2",
+    "size": "M",
+    "color": "Carbon",
+    "date_sold": null,
+    "groupset": {
+      "crank": {
+        "model": "Shimano 105",
+        "crank_arm_length_mm": 172.5,
+        "chainrings": "52-36T"
+      },
+      "sti_levers": "Shimano 105 12-Speed",
+      "front_derailleur": "Shimano 105 12-Speed",
+      "rear_derailleur": "Shimano 105 12-Speed",
+      "cassette": "11-34T"
+    },
+    "tags": ["carbon", "road", "race", "climbing"],
+    "price": 1999,
+    "bike_image": "https://d2yn9m4p3q9iyv.cloudfront.net/giant/2024/tcr-advanced-2/thumbs/1000/92d25.webp"
+  }
+]
