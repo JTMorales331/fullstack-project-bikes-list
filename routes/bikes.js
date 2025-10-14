@@ -62,7 +62,7 @@ router.post("/", async (req, res) => {
     res.status(201).json(newRecord);
 
   } catch (err) {
-    if(err.name === "ValidationError") {
+    if (err.name === "ValidationError") {
       return res.status(422).json(err.errors)
     }
     return res.status(500).send({ message: "server error: ", err })
@@ -70,33 +70,24 @@ router.post("/", async (req, res) => {
 
 })
 
-router.put("/:id", (req, res) => {
-  const id = req.params.id
+router.put("/:id", async (req, res) => {
 
-  const updatedBody = req.body
+  try {
+    const id = req.params.id
 
-  // Error handling
-  // const { error } = validatePerson(updatedBody);
-  // if (error) {
-  //   const errors = error.details.map(item => item.message)
-  //   return res.status(400).json(errors)
-  // }
+    const reqBody = req.body
+    const updatedRecord = await Bike.findByIdAndUpdate(id, reqBody, { new: true, runValidators: true })
+    if (!updatedRecord) {
+      return res.status(404).json({ message: "Record not found" })
+    }
 
-  const bodyIndex = bikes.find((item) => {
-    return item.id === id;
-  })
-
-  if (!id || !bodyIndex) {
-    return res.status(404).send({ message: "ID not found" })
+    res.status(200).json(updatedRecord)
+  } catch (err) {
+    if (err.name === "ValidationError") {
+      return res.status(422).json(err.errors)
+    }
+    return res.status(500).json({ message: "server error: ", err })
   }
-
-  req.body.id = id;
-
-  const bodyToUpdateIndex = bikes.indexOf(bodyIndex)
-
-  bikes[bodyToUpdateIndex] = { id, ...updatedBody }
-
-  res.status(200).json(bikes[bodyToUpdateIndex])
 })
 
 router.delete("/:id", async (req, res) => {
@@ -110,14 +101,14 @@ router.delete("/:id", async (req, res) => {
   //   bikes = filteredBody
   //   res.status(200).json({ message: "Body deleted successfully" })
   // }
-  
-  
+
+
   try {
     const id = req.params.id
 
     const deletedData = await Bike.findByIdAndDelete(id).exec()
-    if(!deletedData){
-      return res.status(404).send()
+    if (!deletedData) {
+      return res.status(404).send({ error: "Deletion unsuccessful" })
     }
     res.status(204).json(deletedData)
 
