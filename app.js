@@ -4,12 +4,21 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import { fileURLToPath } from 'url';
+import mongoose from "mongoose"
 
 // all of our routes
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
 import eventsRouter from "./routes/events.js";
 import bikesRouter from "./routes/bikes.js";
+
+
+// establish connection to mongoDB
+mongoose.connect("mongodb://localhost:27017/test")
+  .then(() => console.log("Connected to MongoDB successfully"))
+  .catch((err) => {
+    console.log("Unable to connect to MongoDB: ", err)
+  })
 
 const app = express();
 
