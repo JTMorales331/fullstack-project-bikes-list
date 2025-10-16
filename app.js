@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import { fileURLToPath } from 'url';
 import mongoose from "mongoose"
+import 'dotenv/config';
 
 // all of our routes
 import indexRouter from './routes/index.js';
@@ -14,7 +15,10 @@ import bikesRouter from "./routes/bikes.js";
 
 
 // establish connection to mongoDB
-mongoose.connect("mongodb://localhost:27017/test")
+
+const connection = process.env.LOCAL_DB
+
+mongoose.connect(connection)
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch((err) => {
     console.log("Unable to connect to MongoDB: ", err)
