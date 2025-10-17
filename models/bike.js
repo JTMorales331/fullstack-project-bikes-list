@@ -1,27 +1,28 @@
 import mongoose from "mongoose"
 
+const crankSchema = new mongoose.Schema({
+  model: {
+    type: String,
+    minlength: [3, "Must be at least 3, got {VALUE}"],
+    maxlength: [100, "Must be at most 100, got {VALUE}"],
+    required: true
+  },
+  crank_arm_length_mm: {
+    type: Number,
+    min: [0, "Must be at least 0, got {VALUE}"],
+    required: true
+  },
+  chainrings: {
+    type: String,
+    minlength: [3, "Must be at least 3, got {VALUE}"],
+    maxlength: [100, "Must be at most 100, got {VALUE}"],
+    required: true
+  }
+}, {_id: false})
+
 const groupsetSchema = new mongoose.Schema({
   crank: {
-    type: {
-      model: {
-        type: String,
-        minlength: [3, "Must be at least 3, got {VALUE}"],
-        maxlength: [100, "Must be at most 100, got {VALUE}"],
-        required: true
-      },
-      crank_arm_length_mm: {
-        type: Number,
-        minlength: [3, "Must be at least 3, got {VALUE}"],
-        maxlength: [100, "Must be at most 100, got {VALUE}"],
-        required: true
-      },
-      chainrings: {
-        type: String,
-        minlength: [3, "Must be at least 3, got {VALUE}"],
-        maxlength: [100, "Must be at most 100, got {VALUE}"],
-        required: true
-      }
-    },
+    type: crankSchema,
     required: true,
     _id: false
   },
@@ -72,11 +73,12 @@ const bikeSchema = new mongoose.Schema({
     type: String,
     minlength: [3, "Must be at least 3, got {VALUE}"],
     maxlength: [100, "Must be at most 100, got {VALUE}"],
+    required: true
   },
   date_sold: Date,
   groupset: groupsetSchema, // optional, for framesets maybe
   tags: [String],
-  price: { type: Number, required: true },
+  price: { type: Number, min: [0, "Must be at least 0, got {VALUE}"], required: true },
   bike_image: String
 },
   {
