@@ -9,9 +9,7 @@ import 'dotenv/config';
 
 // all of our routes
 import indexRouter from './routes/index.js';
-import usersRouter from './routes/users.js';
-import eventsRouter from "./routes/events.js";
-import bikesRouter from "./routes/bikes.js";
+import apiRouter from "./routes/api/index.js";
 
 
 // establish connection to mongoDB
@@ -40,9 +38,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/events', eventsRouter);
-app.use('/bikes', bikesRouter);
+app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

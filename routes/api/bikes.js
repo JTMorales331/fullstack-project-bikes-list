@@ -1,8 +1,8 @@
 import express from "express"
 import { v4 as uuidv4 } from "uuid"
-import b from "../artifacts/json-server-test.json" with { type: "json" }
+import b from "../../artifacts/json-server-test.json" with { type: "json" }
 
-import Bike from "../models/bike.js"
+import Bike from "../../models/bike.js"
 
 const router = express.Router()
 
