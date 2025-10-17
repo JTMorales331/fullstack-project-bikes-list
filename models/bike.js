@@ -34,7 +34,7 @@ const bikeSchema = new mongoose.Schema({
   },
   color: String,
   date_sold: Date,
-  groupset: groupsetSchema,
+  groupset: groupsetSchema, // optional, for framesets maybe
   tags: [String],
   price: { type: Number, required: true },
   bike_image: String

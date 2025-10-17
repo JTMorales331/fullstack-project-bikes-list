@@ -1,3 +1,4 @@
-.env
+# uncomment the .env file after the course I guess
+# .env
 node_modules
 *.http

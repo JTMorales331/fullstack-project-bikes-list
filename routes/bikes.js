@@ -81,6 +81,8 @@ router.put("/:id", async (req, res) => {
       return res.status(404).json({ message: "Record not found" })
     }
 
+    // 204 if you don't return anything
+    // 200 if you want to return something with the response
     res.status(200).json(updatedRecord)
   } catch (err) {
     if (err.name === "ValidationError") {
