@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import validator from "validator";
-import mongooseUniqueValidator from "mongoose-unique-validator";
+// import mongooseUniqueValidator from "mongoose-unique-validator";
 
 const userSchema = new mongoose.Schema({
   first_name: {
@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    unique: [true, "Email already exists"],
+    unique: true,
     required: true,
     // https://codemia.io/knowledge-hub/path/mongoose_-_validate_email_syntax
     validate: [validator.isEmail, "Invalid email format"]
@@ -39,6 +39,6 @@ const userSchema = new mongoose.Schema({
   versionKey: false
 })
 
-userSchema.plugin(mongooseUniqueValidator)
+// userSchema.plugin(mongooseUniqueValidator)
 
 export default mongoose.model("User", userSchema)
