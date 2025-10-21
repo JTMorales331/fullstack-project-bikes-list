@@ -18,7 +18,7 @@ const crankSchema = new mongoose.Schema({
     maxlength: [100, "Must be at most 100, got {VALUE}"],
     required: true
   }
-}, {_id: false})
+}, { _id: false })
 
 const groupsetSchema = new mongoose.Schema({
   crank: {
@@ -77,7 +77,18 @@ const bikeSchema = new mongoose.Schema({
   },
   date_sold: Date,
   groupset: groupsetSchema, // optional, for framesets maybe
-  tags: [String],
+  tags: {
+    type: [String],
+    required: true,
+    validate: [
+      {
+        validator: function (arr) {
+          return arr.length > 0
+        },
+        message: "Should have at least one tag"
+      }
+    ]
+  },
   price: { type: Number, min: [0, "Must be at least 0, got {VALUE}"], required: true },
   bike_image: String
 },

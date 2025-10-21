@@ -3,12 +3,15 @@ import User from "../../models/user.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import { passwordStrength } from 'check-password-strength';
+import validator from "validator"
 import "dotenv/config.js"
+import { verifyToken } from '../../middleware/Authentication.js';
+import Login from '../../models/login.js';
 
 const router = express.Router();
 
 /* GET users listing. */
-router.get('/', async function (req, res, next) {
+router.get('/',  verifyToken, async function (req, res, next) {
   try {
     const userData = await User.find().exec()
 
@@ -23,7 +26,7 @@ router.get('/', async function (req, res, next) {
 });
 
 // for checking
-router.get("/:id", async (req, res) => {
+router.get("/:id", verifyToken, async (req, res) => {
   try {
     const id = req.params.id
     const userData = await User.findById(id).exec()
@@ -32,7 +35,14 @@ router.get("/:id", async (req, res) => {
       return res.status(404).json({ message: "Record not  found" })
     }
 
-    res.status(200).json(userData)
+    // remove password
+    const { password, ...rest } = userData.toObject();
+
+    // trying another way
+    // const finaluserData = userData.toObject();
+    // delete finaluserData.password;
+
+    res.status(200).json(rest)
   } catch (err) {
     return res.status(500).json({ message: "Server error: ", err })
   }
@@ -45,24 +55,28 @@ router.post("/register", async (req, res) => {
     // A bit more understanding: this creates a new User document
 
     // then we check the password strength
-    const { password } = req.body;
-
-
-    if (passwordStrength(password).id < 1) {
-      return res.status(400).json({ message: `Password is ${passwordStrength(password).value.toString().toLowerCase()}` })
+    console.log("working....")
+    const passwordObject = passwordStrength(req.body.password)
+    console.log('password strength: ', passwordObject)
+    if (passwordObject.id < 2) {
+      return res.status(422).json({ message: `Password is ${passwordObject.value.toString().toLowerCase()}` })
     }
-
     const saltRounds = 10
     const salt = await bcrypt.genSalt(saltRounds)
-
-    const hashedPassword = await bcrypt.hash(password, salt)
-
+    
+    const hashedPassword = await bcrypt.hash(req.body.password, salt)
+    
     const newUser = new User({ ...req.body, password: hashedPassword })
-
+    
+    console.log("sdfdsfsdf... ")
+    
     // and THIS actually saves said document to MongoDB
     const newRecord = await newUser.save()
 
-    return res.status(201).json(newRecord)
+    console.log("something:sdfsdff ")
+    const { password, ...rest } = newRecord.toObject()
+
+    return res.status(200).json(rest)
   } catch (err) {
     if (err.name === "ValidationError") {
       return res.status(422).json(err.errors)
@@ -70,7 +84,7 @@ router.post("/register", async (req, res) => {
 
     if (err.code === 11000) {
       // err.errmsg = "Email duplicate smth smth"
-      return res.status(422).json({ message: "Email has already been used" })
+      return res.status(409).json({ message: "Email has already been used" })
     }
 
     return res.status(500).send({ message: "server error: ", err })
@@ -82,15 +96,25 @@ router.post("/login", async (req, res) => {
   try {
 
     const { email, password } = req.body
+    console.log("starting login....")
 
+    await Login.validate(req.body)
+
+    // if(!validator.isEmail(email)) {
+    //   console.log("checking...")
+    //   return res.status(400).json({ message: "Invalid Email" })
+    // }
+
+    console.log("finding the user with email....")
     const user = await User.findOne({ email })
+
     if (!user) {
-      return res.status(400).json({ message: "user email not found " })
+      return res.status(401).json({ message: "user email not found" })
     }
 
     const isMatched = await bcrypt.compare(password, user.password)
     if (!isMatched) {
-      return res.status(400).json({ message: "Password does not match to user " })
+      return res.status(401).json({ message: "Password does not match to user" })
     }
 
     // put whatever info of user do you need here
@@ -108,44 +132,50 @@ router.post("/login", async (req, res) => {
           console.log("error thingY: ", err)
           return res.status(400).json({ error: "error on the token!: " + err.message })
         }
-        return res.status(200).json({ token: token, user_id: user.id, email: user.email })
+
+        // apply custom header before sending response
+        res.header({"x-auth-token": token });
+        return res.status(200).json({ user_id: user.id, email: user.email })
       }
     );
 
     // res.status(200).json({ payload: finalPayload })
 
   } catch (err) {
+    if (err.name === "ValidationError") {
+      return res.status(422).json(err.errors)
+    }
     return res.status(500).send({ message: "server error: ", err })
   }
 })
 
-router.post("/verify", async (req, res) => {
+// router.post("/verify", async (req, res) => {
 
-  try {
-    const authHeader = req.headers.authorization
+//   try {
+//     const authHeader = req.headers.authorization
 
-    if (!authHeader) {
-      return res.status(401).json({ error: "Invalid auth header" })
-    }
+//     if (!authHeader) {
+//       return res.status(401).json({ error: "Invalid auth header" })
+//     }
 
-    // We have to put Bearer but we gotta extract it
-    const token = authHeader && authHeader.split(' ')[1];
+//     // We have to put Bearer but we gotta extract it
+//     const token = authHeader && authHeader.split(' ')[1];
 
-    if (!token) {
-      return res.status(401).json({ error: "Invalid token" })
-    }
+//     if (!token) {
+//       return res.status(401).json({ error: "Invalid token" })
+//     }
 
-    const decoded = jwt.verify(token, process.env.SECRET)
-    req.user = decoded;
-    return res.status(200).json({ headers: token, isValid: true })
+//     const decoded = jwt.verify(token, process.env.SECRET)
+//     req.user = decoded;
+//     return res.status(200).json({ headers: token, isValid: true })
 
-  } catch (err) {
-    if (err.name === "TokenExpiredError") {
-      return res.status(400).json({jwt_error: err.message})
-    }
-    return res.status(500).send({ message: "server error: ", err })
-  }
+//   } catch (err) {
+//     if (err.name === "TokenExpiredError") {
+//       return res.status(400).json({jwt_error: err.message})
+//     }
+//     return res.status(500).send({ message: "server error: ", err })
+//   }
 
-})
+// })
 
 export default router;

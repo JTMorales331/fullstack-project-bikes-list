@@ -5,13 +5,13 @@ import validator from "validator";
 const userSchema = new mongoose.Schema({
   first_name: {
     type: String,
-    minlength: [2, "Must be at least 2, got {VALUE}"],
+    // minlength: [2, "Must be at least 2, got {VALUE}"],
     maxlength: [100, "Must be at most 100, got {VALUE}"],
     required: true
   },
   last_name: {
     type: String,
-    minlength: [2, "Must be at least 2, got {VALUE}"],
+    // minlength: [2, "Must be at least 2, got {VALUE}"],
     maxlength: [100, "Must be at most 100, got {VALUE}"],
     required: true
   },
@@ -19,17 +19,19 @@ const userSchema = new mongoose.Schema({
     type: String,
     unique: true,
     required: true,
-    // https://codemia.io/knowledge-hub/path/mongoose_-_validate_email_syntax
-    validate: [validator.isEmail, "Invalid email format"]
+    validate: {
+      validator: function(v) {
+        return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(v);
+      },
+      message: "Invalid email format"
+    }
   },
   password: {
     type: String,
-    minlength: [2, "Must be at least 2, got {VALUE}"],
+    // minlength: [2, "Must be at least 2, got {VALUE}"],
     maxlength: [255, "Must be at most 255, got {VALUE}"],
     required: true
   }
-
-
 }, {
   timestamps: {
     createdAt: "created_at",
