@@ -8,6 +8,6 @@ const loginSchema = new mongoose.Schema({
     match: [/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/, "Invalid email format"]
   },
   password: { type: String, required: true}
-})
+}, {autoCreate: false})
 
 export default mongoose.model("Login", loginSchema)

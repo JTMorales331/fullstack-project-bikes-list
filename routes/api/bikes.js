@@ -1,12 +1,12 @@
 import express from "express"
 import { v4 as uuidv4 } from "uuid"
 import b from "../../artifacts/json-server-test.json" with { type: "json" }
+import { verifyToken } from "../../middleware/Authentication.js"
 
 import Bike from "../../models/bike.js"
 
 const router = express.Router()
 
-let bikes = b
 
 router.get("/", async (req, res) => {
 
@@ -44,7 +44,7 @@ router.get("/:id", async (req, res) => {
   }
 })
 
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
   // Error handling
   // const { error } = validatePerson(req.body);
   // if (error) {
@@ -70,7 +70,7 @@ router.post("/", async (req, res) => {
 
 })
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", verifyToken, async (req, res) => {
 
   try {
     const id = req.params.id
@@ -92,7 +92,7 @@ router.put("/:id", async (req, res) => {
   }
 })
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verifyToken, async (req, res) => {
   // const filteredBody = bikes.filter((item) => {
   //   return item.id !== req.params.id
   // })
