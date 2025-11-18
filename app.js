@@ -6,6 +6,7 @@ import logger from 'morgan';
 import { fileURLToPath } from 'url';
 import mongoose from "mongoose"
 import 'dotenv/config';
+import cors from 'cors';
 
 // all of our routes
 import indexRouter from './routes/index.js';
@@ -31,6 +32,8 @@ const __dirname = path.dirname(__filename); // get the name of the directory
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+// app-level middleware
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
