@@ -14,9 +14,10 @@ const Main = () => {
 
     if (isPending) return <span>Loading...</span>;
     if (error) return <span>Oops!</span>;
-    console.log({data})
+    // console.log({data})
     return data.map((card, index) => {
-      return <Card key={index} item={card} className="col-md-4" />;
+      console.log(card)
+      return <Card key={index} image={card.bike_image} brand={card.brand} model={card.model} tags={card.tags} className="col-md-4" />;
     });
   }
 
