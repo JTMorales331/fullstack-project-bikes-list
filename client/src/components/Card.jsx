@@ -1,4 +1,13 @@
 import React from "react";
+import {PropTypes} from "prop-types"
+
+Card.propTypes = {
+  className: PropTypes.string,
+  image: PropTypes.string,
+  model: PropTypes.string,
+  brand: PropTypes.string,
+  tags: PropTypes.arrayOf(PropTypes.string),
+}
 
 export default function Card({ className, image, model, brand, tags }) {
   return (

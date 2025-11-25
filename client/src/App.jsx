@@ -1,20 +1,21 @@
-import React from 'react';
-import NavBar from './components/NavBar';
-import Main from './components/Main';
-import SignIn from './components/SignIn';
-import Footer from './components/Footer';
+import React from "react";
+import Main from "./components/Main";
+import SignIn from "./components/SignIn";
+import { Routes, Route, Outlet } from "react-router-dom";
+import MainLayout from "./layouts/main";
 
 const App = () => {
   return (
-    <>
-      <NavBar />
-      <div id="main-content">
-        {/* <SignIn /> */}
-        <Main />
-      </div>
-      <Footer />
-    </>
+    // <Routes>
+    //   <Route element={<MainLayout />} path="/">
+    //     <Route element={<Main />} index />
+    //     <Route element={<SignIn />} path="sign-in" />
+    //   </Route>
+    // </Routes>
+    <MainLayout>
+      <Outlet />
+    </MainLayout>
   );
-}
+};
 
-export default App
+export default App;

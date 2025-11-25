@@ -3,9 +3,10 @@ import "../css/main.css";
 import "font-awesome/css/font-awesome.min.css";
 import { useQuery } from "@tanstack/react-query";
 import Card from "./Card";
+import { useLoaderData } from "react-router-dom";
 
 const Main = () => {
-  function getCards() {
+  function GetCards() {
     const { data, isPending, error } = useQuery({
       queryKey: ["bikes"],
       queryFn: () =>
@@ -20,6 +21,8 @@ const Main = () => {
       return <Card key={index} image={card.bike_image} brand={card.brand} model={card.model} tags={card.tags} className="col-md-4" />;
     });
   }
+
+  // const bikes = useLoaderData();
 
   return (
     <div>
@@ -43,7 +46,20 @@ const Main = () => {
       <div className="album py-5 bg-light">
         <div className="container">
           <div className="row">
-            { getCards() }
+            { GetCards() }
+            {/* {bikes && bikes.map((card, index) => {
+              console.log(card);
+              return (
+                <Card
+                  key={index}
+                  image={card.bike_image}
+                  brand={card.brand}
+                  model={card.model}
+                  tags={card.tags}
+                  className="col-md-4"
+                />
+              );
+            })} */}
           </div>
         </div>
       </div>
