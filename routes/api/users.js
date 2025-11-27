@@ -11,7 +11,7 @@ import Login from '../../models/login.js';
 const router = express.Router();
 
 /* GET users listing. */
-router.get('/',  verifyToken, async function (req, res, next) {
+router.get('/', verifyToken, async function (req, res, next) {
   try {
     const userData = await User.find().exec()
 
@@ -63,13 +63,13 @@ router.post("/register", async (req, res) => {
     }
     const saltRounds = 10
     const salt = await bcrypt.genSalt(saltRounds)
-    
+
     const hashedPassword = await bcrypt.hash(req.body.password, salt)
-    
+
     const newUser = new User({ ...req.body, password: hashedPassword })
-    
+
     console.log("sdfdsfsdf... ")
-    
+
     // and THIS actually saves said document to MongoDB
     const newRecord = await newUser.save()
 
@@ -134,7 +134,11 @@ router.post("/login", async (req, res) => {
         }
 
         // apply custom header before sending response
-        res.header({"x-auth-token": token });
+        // probably won't use the header
+        res.header({ "x-auth-token": token });
+
+        // send token to  an http only cookie
+        res.cookie('jwt', token, { httpOnly: true, path: '/' });
         return res.status(200).json({ user_id: user.id, email: user.email })
       }
     );

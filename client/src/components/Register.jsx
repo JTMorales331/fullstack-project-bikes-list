@@ -1,28 +1,43 @@
 import "../css/signin.css";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
-
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { register, handleSubmit } = useForm();
 
   function onSubmit(data) {
     console.log(data);
-    // send data to /api/users/login
+    mutation.mutate(data);
   }
 
-  // const mutation = useMutation(function (loginData) {
-  //   fetch("http://localhost:3000/api/users/login", {
-  //     method: "POST",
-  //     body: JSON.stringify(loginData),
-  //     headers: { "Content-type": "application/json" },
-  //   })
-  //     .then((payload) => {
-  //       payload.json();
-  //     })
-  //     .then((json) => console.log(json));
-  // });
+  const mutation = useMutation({
+    mutationFn: async (registerData) => {
+      const res = await fetch("http://localhost:3000/api/users/register", {
+        credentials: 'include',
+        method: "POST",
+        body: JSON.stringify(registerData),
+        headers: { "Content-type": "application/json" },
+      });
+
+      console.log(res);
+
+      if(!res.ok) throw new Error("Register unsuccessful");
+      return await res.json();
+      // .then((json) => console.log(json));
+    },
+    onSuccess: (responseBody) => {
+      console.log('Register success!', responseBody)
+
+      // token is now available
+      navigate('/sign-in');
+    },
+    onError: (err) => {
+      console.error("Register Error: ", err.message);
+    }
+  });
 
   return (
     // first name, last name, email, and password
@@ -38,7 +53,7 @@ export default function Register() {
         className="form-control"
         placeholder="First Name"
         autoFocus
-        {...register("firstName", { required: true })}
+        {...register("first_name", { required: true })}
       />
 
       <label htmlFor="inputLastName" className="sr-only">
@@ -50,7 +65,7 @@ export default function Register() {
         className="form-control"
         placeholder="Last Name"
         autoFocus
-        {...register("lastName", { required: true })}
+        {...register("last_name", { required: true })}
       />
 
       <label htmlFor="inputEmail" className="sr-only">
@@ -79,6 +94,11 @@ export default function Register() {
       <button className="btn btn-lg btn-primary btn-block" type="submit">
         Register
       </button>
+      { 
+        mutation.isError && (
+          <p className="mt-1 text-danger">Invalid Register. Please try again</p>
+        )
+      }
     </form>
   )
 }

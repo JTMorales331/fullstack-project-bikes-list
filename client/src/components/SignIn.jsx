@@ -1,26 +1,45 @@
 import "../css/signin.css";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom"
 
 const SignIn = () => {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { register, handleSubmit } = useForm();
 
   function onSubmit(data) {
     console.log(data);
-    // send data to /api/users/login
+
+    // run const mutation
+    mutation.mutate(data);
   }
 
-  const mutation = useMutation(function (loginData) {
-    fetch("http://localhost:3000/api/users/login", {
-      method: "POST",
-      body: JSON.stringify(loginData),
-      headers: { "Content-type": "application/json" },
-    })
-      .then((payload) => {
-        payload.json();
-      })
-      .then((json) => console.log(json));
+  // send data to /api/users/login
+  const mutation = useMutation({
+    mutationFn: async (loginData) => {
+      const res = await fetch("http://localhost:3000/api/users/login", {
+        credentials: 'include',
+        method: "POST",
+        body: JSON.stringify(loginData),
+        headers: { "Content-type": "application/json" },
+      });
+
+      console.log(res);
+
+      if(!res.ok) throw new Error("Login unsuccessful");
+      return await res.json();
+      // .then((json) => console.log(json));
+    },
+    onSuccess: (responseBody) => {
+      console.log('Login success!', responseBody)
+
+      // token is now available
+      navigate('/');
+    },
+    onError: (err) => {
+      console.error("Login Error: ", err.message);
+    }
   });
 
   return (
@@ -53,6 +72,12 @@ const SignIn = () => {
       <button className="btn btn-lg btn-primary btn-block" type="submit">
         Sign in
       </button>
+
+      { 
+        mutation.isError && (
+          <p className="mt-1 text-danger">Invalid Login. Please try again</p>
+        )
+      }
     </form>
   );
 };
