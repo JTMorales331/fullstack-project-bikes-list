@@ -20,7 +20,7 @@ export default function Register() {
       console.log('Register success!', responseBody)
 
       // token is now available
-      navigate('/sign-in');
+      navigate('/');
     },
     onError: (err) => {
       console.error("Register Error: ", err.message);

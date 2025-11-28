@@ -76,13 +76,21 @@ router.post("/register", async (req, res) => {
     console.log("something:sdfsdff ")
     const { password, ...rest } = newRecord.toObject()
 
+    const payload = {
+      user_id: newUser.id,
+      email: newUser.email
+    }
+
     jwt.sign(
       payload,
       process.env.SECRET,
       { algorithm: 'HS256', expiresIn: "1m" },
-      function (err, token) {
+      async function (err, token) {
         if (err) {
           console.log("error thingY: ", err)
+          // delete user just in case stuff happens
+          await User.findByIdAndDelete(newUser.id);
+
           return res.status(400).json({ error: "error on the token!: " + err.message })
         }
 
