@@ -1,15 +1,18 @@
 import React from "react";
-import {PropTypes} from "prop-types"
+import { PropTypes } from "prop-types";
 
 Card.propTypes = {
   className: PropTypes.string,
-  image: PropTypes.string,
-  model: PropTypes.string,
-  brand: PropTypes.string,
-  tags: PropTypes.arrayOf(PropTypes.string),
-}
+  data: PropTypes.shape({
+    bike_image: PropTypes.string,
+    model: PropTypes.string,
+    brand: PropTypes.string,
+    price: PropTypes.number,
+    tags: PropTypes.arrayOf(PropTypes.string),
+  }),
+};
 
-export default function Card({ className, image, model, brand, tags }) {
+export default function Card({ className, data }) {
   return (
     <div className={className}>
       <div className="card mb-4 box-shadow">
@@ -27,8 +30,8 @@ export default function Card({ className, image, model, brand, tags }) {
         >
           <img
             className="card-img-top p-3 object-fit-contain"
-            src={image}
-            alt={"image of " + model + " " + brand}
+            src={data.bike_image}
+            alt={"image of " + data.model + " " + data.brand}
             data-holder-rendered="true"
             style={{
               width: "100%",
@@ -38,16 +41,20 @@ export default function Card({ className, image, model, brand, tags }) {
         </div>
         <div className="card-body">
           <div className="mb-3">
-            <h4 className="">{model}</h4>
-            <h5 className="text-secondary">{brand}</h5>
+            <h4 className="">{data.model}</h4>
+            {/* <div className="d-flex align-items-center gap-2">
+              <h5 className="text-secondary m-0">{data.brand}</h5>
+              <small className="text-muted m-0">$ {data.price}</small>
+              </div> */}
+            <h5 className="text-secondary m-0">{data.brand}</h5>
           </div>
           {/* <p className="card-text">
             This is a wider card with supporting text below as a natural lead-in
             to additional content. This content is a little bit longer.
           </p> */}
           <div className="mb-4 d-flex flex-wrap">
-            {tags &&
-              tags.map((tag, idx) => (
+            {data.tags &&
+              data.tags.map((tag, idx) => (
                 <span
                   key={idx}
                   className="badge border border-secondary text-dark p-2 mr-2 mb-2"
@@ -56,8 +63,8 @@ export default function Card({ className, image, model, brand, tags }) {
                 </span>
               ))}
           </div>
-          <div className="d-flex justify-content-between align-items-center">
-            <div className="btn-group">
+          <div className="d-flex justify-content-between align-items-center w-100">
+            <div className="btn-group w-100">
               <button
                 type="button"
                 className="btn btn-sm btn-outline-secondary"
@@ -77,7 +84,6 @@ export default function Card({ className, image, model, brand, tags }) {
                 Delete
               </button>
             </div>
-            <small className="text-muted">9 mins</small>
           </div>
         </div>
       </div>

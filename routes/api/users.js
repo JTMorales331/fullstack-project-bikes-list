@@ -153,6 +153,13 @@ router.post("/login", async (req, res) => {
   }
 })
 
+router.post('logout', (req, res) => {
+  // clear the httpOnly jwt cookie
+  res.clearCookie('jwt');
+
+  res.status(204).send();
+})
+
 // router.post("/verify", async (req, res) => {
 
 //   try {

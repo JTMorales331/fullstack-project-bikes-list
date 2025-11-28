@@ -1,6 +1,6 @@
 import React from "react";
-import Main from "./components/Main";
-import SignIn from "./components/SignIn";
+import Main from "./pages/Main";
+import SignIn from "./pages/SignIn";
 import { Routes, Route, Outlet } from "react-router-dom";
 import MainLayout from "./layouts/main";
 
