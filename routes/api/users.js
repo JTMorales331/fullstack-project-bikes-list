@@ -76,7 +76,27 @@ router.post("/register", async (req, res) => {
     console.log("something:sdfsdff ")
     const { password, ...rest } = newRecord.toObject()
 
-    return res.status(200).json(rest)
+    jwt.sign(
+      payload,
+      process.env.SECRET,
+      { algorithm: 'HS256', expiresIn: "1m" },
+      function (err, token) {
+        if (err) {
+          console.log("error thingY: ", err)
+          return res.status(400).json({ error: "error on the token!: " + err.message })
+        }
+
+        // apply custom header before sending response
+        // probably won't use the header
+        res.header({ "x-auth-token": token });
+
+        // send token to  an http only cookie
+        res.cookie('jwt', token, { httpOnly: true, path: '/' });
+        // return res.status(200).json({ user_id: user.id, email: user.email })
+        return res.status(200).json(rest)
+      }
+    );
+
   } catch (err) {
     if (err.name === "ValidationError") {
       return res.status(422).json(err.errors)
