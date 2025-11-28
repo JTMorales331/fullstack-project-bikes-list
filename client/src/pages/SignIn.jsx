@@ -32,7 +32,7 @@ const SignIn = () => {
       console.log("Login success!", responseBody);
       sessionStorage.setItem("res-dedaci", true)
       // token is now available
-      navigate(lastPage);
+      navigate('/');
     },
     onError: (err) => {
       console.error("Login Error: ", err.message);
