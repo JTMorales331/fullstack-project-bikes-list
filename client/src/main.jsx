@@ -14,6 +14,7 @@ import Main from "./pages/Main.jsx";
 import SignIn from "./pages/SignIn.jsx";
 import Register from "./pages/Register.jsx";
 import Dummy from "./pages/Dummy.jsx";
+import Form from "./pages/CreateForm.jsx"
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,7 @@ const router = createBrowserRouter([
         element: <ProtectedRoutes />,
         children: [
           { path: "dummy", element: <Dummy /> },
+          { path: "bikes", element: <Form /> },
         ]
       }
     ],

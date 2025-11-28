@@ -44,7 +44,7 @@ const Main = () => {
   // const bikes = useLoaderData();
 
   return (
-    <div>
+    <>
       <section className="jumbotron text-center">
         <div className="container">
           <div className="input-group">
@@ -82,7 +82,7 @@ const Main = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
