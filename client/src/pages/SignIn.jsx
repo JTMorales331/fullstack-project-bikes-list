@@ -11,7 +11,11 @@ const SignIn = () => {
   const lastPage = location;
 
   const queryClient = useQueryClient();
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   function onSubmit(data) {
     console.log(data);
@@ -21,8 +25,8 @@ const SignIn = () => {
   }
 
   useEffect(() => {
-    console.log({lastPage})
-  }, [lastPage])
+    console.log({ lastPage });
+  }, [lastPage]);
 
   // send data to /api/users/login
   const mutation = useMutation({
@@ -30,9 +34,9 @@ const SignIn = () => {
     // .then((json) => console.log(json));
     onSuccess: (responseBody) => {
       console.log("Login success!", responseBody);
-      sessionStorage.setItem("res-dedaci", true)
+      sessionStorage.setItem("res-dedaci", true);
       // token is now available
-      navigate('/');
+      navigate("/");
     },
     onError: (err) => {
       console.error("Login Error: ", err.message);
@@ -43,30 +47,40 @@ const SignIn = () => {
     <form className="form-signin" onSubmit={handleSubmit(onSubmit)}>
       <h1 className="h3 mb-3 font-weight-normal text-center">Please sign in</h1>
 
-      <label htmlFor="inputEmail" className="sr-only">
-        Email address
-      </label>
-      <input
-        type="text"
-        id="inputEmail"
-        className="form-control"
-        placeholder="Email address"
-        autoFocus
-        {...register("email", { required: true })}
-      />
+      <div className="mb-3">
+        <label htmlFor="inputEmail" className="form-label">
+          Email address
+        </label>
+        <input
+          type="text"
+          id="inputEmail"
+          className="form-control"
+          placeholder="Email address"
+          autoFocus
+          {...register("email", { required: "Email is required" })}
+        />
+        {errors.email && (
+          <div className="text-danger">{errors.email.message}</div>
+        )}
+      </div>
 
-      <label htmlFor="inputPassword" className="sr-only">
-        Password
-      </label>
-      <input
-        type="password"
-        id="inputPassword"
-        className="form-control"
-        placeholder="Password"
-        {...register("password", { required: true })}
-      />
+      <div className="">
+        <label htmlFor="inputPassword" className="sr-only">
+          Password
+        </label>
+        <input
+          type="password"
+          id="inputPassword"
+          className="form-control"
+          placeholder="Password"
+          {...register("password", { required: "Password is required" })}
+        />
+        {errors.password && (
+          <div className="text-danger">{errors.password.message}</div>
+        )}
+      </div>
 
-      <button className="btn btn-lg btn-primary btn-block" type="submit">
+      <button className="btn btn-lg btn-primary btn-block mt-5" type="submit">
         Sign in
       </button>
 
