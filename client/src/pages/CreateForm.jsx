@@ -13,22 +13,34 @@ export default function CreateForm() {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
 
-  const [tags, setTags] = useState([])
-  const [tagInput, setTagInput] = useState("")
+  const [tags, setTags] = useState([]);
+  const [tagInput, setTagInput] = useState("");
 
+  // Add the tag input into tags
   function handleAddTag(e) {
+    e.preventDefault();
 
+    const trimmedTag = tagInput.trim();
+
+    if (trimmedTag && !tags.includes(trimmedTag)) {
+      setTags([...tags, trimmedTag]);
+    }
+
+    setTagInput("");
   }
 
-  function handleRemoveTag(e) {
-    
+  // Remove the tag from tags
+  function handleRemoveTag(tagToRemove) {
+    // e.preventDefault();
+    setTags(tags.filter((tag) => tag !== tagToRemove));
   }
 
   function onSubmit(data) {
-    console.log({ data });
+    const newData = { ...data, tags };
+    console.log(newData);
 
     // submit the data to the mutated postBike function
-    // mutation.mutate(data);
+    mutation.mutate(newData);
   }
 
   // send data to /api/bikes
@@ -137,6 +149,58 @@ export default function CreateForm() {
           {...register("bike_image", { required: true })}
         />
       </div>
+
+      <div className="mb-5">
+        <label htmlFor="bikeImage" className="form-label">
+          Add a tag
+        </label>
+        {/* Input for the tag */}
+        <div className="d-flex items-center">
+          <input
+            type="text"
+            id="bikeImage"
+            onChange={(e) => setTagInput(e.target.value)}
+            className="form-control flex-grow-1"
+            placeholder="all-around"
+            autoFocus
+            // {...register("bike_image", { required: true })}
+          />
+          <button
+            className="btn flex-shrink-0 btn-secondary"
+            onClick={handleAddTag}
+          >
+            Add
+          </button>
+        </div>
+
+        {/* tag list */}
+        <div className="d-flex flex-wrap">
+          {tags.map((tag, index) => {
+            return (
+              <span key={index}>
+                {tag}
+                <button
+                  type="button"
+                  className="btn close"
+                  aria-label="Remove"
+                  onClick={() => handleRemoveTag(tag)}
+                >
+                  X
+                </button>
+              </span>
+            );
+          })}
+        </div>
+      </div>
+
+      <button className="btn btn-lg btn-primary btn-block" type="submit">
+        Submit bike
+      </button>
+      { 
+        mutation.isError && (
+          <p className="mt-1 text-danger">Invalid posting of bike. Please try again</p>
+        )
+      }
     </form>
   );
 }
