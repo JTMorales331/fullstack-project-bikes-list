@@ -4,13 +4,17 @@ import jwt from "jsonwebtoken"
 export function verifyToken(req, res, next) {
   try {
     // const authHeader = req.header.authorization
-    const token = req.header("x-auth-token")
-    console.log(req.headers)
+    // const token = req.header("x-auth-token")
+    // console.log(req.headers)
+    
+    // trying cookies
+    const token = req.cookies.jwt
+    console.log(req.cookies.jwt)
 
-    if (!token) {
-      // 401 code error = Unauthorized
-      return res.status(401).json({ error: "Invalid auth header" })
-    }
+    // if (!token) {
+    //   // 401 code error = Unauthorized
+    //   return res.status(401).json({ error: "Invalid auth header" })
+    // }
 
     // We have to put Bearer but we gotta extract it
     // const token = authHeader && authHeader.split(' ')[1];

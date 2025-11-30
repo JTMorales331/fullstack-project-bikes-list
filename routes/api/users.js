@@ -84,7 +84,7 @@ router.post("/register", async (req, res) => {
     jwt.sign(
       payload,
       process.env.SECRET,
-      { algorithm: 'HS256', expiresIn: "1m" },
+      { algorithm: 'HS256' },
       async function (err, token) {
         if (err) {
           console.log("error thingY: ", err)
@@ -154,7 +154,7 @@ router.post("/login", async (req, res) => {
     jwt.sign(
       payload,
       process.env.SECRET,
-      { algorithm: 'HS256', expiresIn: "1m" },
+      { algorithm: 'HS256' },
       function (err, token) {
         if (err) {
           console.log("error thingY: ", err)
