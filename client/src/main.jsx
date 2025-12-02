@@ -39,12 +39,13 @@ const router = createBrowserRouter([
         //   }
         // },
       },
-      { path: "sign-in", element: <SignIn /> },
-      { path: "register", element: <Register /> },
-      // {
-      //   element: <UnAuthRoutes />,
-      //   children: [],
-      // },
+      {
+        element: <UnAuthRoutes />,
+        children: [
+          { path: "sign-in", element: <SignIn /> },
+          { path: "register", element: <Register /> },
+        ],
+      },
       {
         element: <ProtectedRoutes />,
         children: [
