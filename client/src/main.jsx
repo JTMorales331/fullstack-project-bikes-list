@@ -7,14 +7,18 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // Routing
-import ProtectedRoutes from "../src/routing/ProtectedRoutes.jsx";
+import {
+  ProtectedRoutes,
+  UnAuthRoutes,
+} from "../src/routing/ProtectedRoutes.jsx";
 
 // Pages
 import Main from "./pages/Main.jsx";
 import SignIn from "./pages/SignIn.jsx";
 import Register from "./pages/Register.jsx";
 import Dummy from "./pages/Dummy.jsx";
-import Form from "./pages/CreateForm.jsx"
+import Form from "./pages/CreateForm.jsx";
+import SignOut from "./pages/SignOut.jsx";
 
 const queryClient = new QueryClient();
 
@@ -37,13 +41,18 @@ const router = createBrowserRouter([
       },
       { path: "sign-in", element: <SignIn /> },
       { path: "register", element: <Register /> },
+      // {
+      //   element: <UnAuthRoutes />,
+      //   children: [],
+      // },
       {
         element: <ProtectedRoutes />,
         children: [
-          { path: "dummy", element: <Dummy /> },
-          { path: "bikes", element: <Form /> },
-        ]
-      }
+          // { path: "dummy", element: <Dummy /> },
+          { path: "bikes/create", element: <Form /> },
+          // { path: "sign-out", element: <SignOut /> },
+        ],
+      },
     ],
   },
 ]);

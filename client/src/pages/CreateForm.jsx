@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useForm, useFieldArray } from "react-hook-form";
 import { postBike } from "../services/bikes";
 import "../css/form.css";
@@ -349,9 +349,21 @@ export default function CreateForm() {
         </div>
       </div>
 
-      <button className="btn btn-lg btn-primary w-100 w-lg-auto" type="submit">
-        Submit bike
-      </button>
+      <div className="d-flex flex-column flex-lg-row justify-content-between align-items-center" role="group">
+        <button
+          className="btn btn-lg btn-primary w-100 w-lg-auto mb-3 mb-lg-0 mr-lg-3"
+          type="submit"
+        >
+          Submit bike
+        </button>
+        <Link
+          className="btn btn-lg btn-secondary w-100 w-lg-auto"
+          to="/"
+        >
+          Cancel
+        </Link>
+      </div>
+
       {mutation.isError && (
         <p className="text-danger">Invalid posting of bike. Please try again</p>
       )}

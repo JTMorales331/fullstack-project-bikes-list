@@ -101,7 +101,7 @@ router.post("/register", async (req, res) => {
         // send token to  an http only cookie
         res.cookie('jwt', token, { httpOnly: true, path: '/' });
         // return res.status(200).json({ user_id: user.id, email: user.email })
-        return res.status(200).json(rest)
+        return res.status(200).json(payload)
       }
     );
 
@@ -181,7 +181,7 @@ router.post("/login", async (req, res) => {
   }
 })
 
-router.post('logout', (req, res) => {
+router.post('/logout', (req, res) => {
   // clear the httpOnly jwt cookie
   res.clearCookie('jwt');
 

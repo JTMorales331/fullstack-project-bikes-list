@@ -8,8 +8,13 @@ export const registerUser = async (registerData) => {
 
   console.log(res);
 
+  if (!res.ok) throw new Error("Login unsuccessful");
+  const data = await res.json();
+  sessionStorage.setItem("user-email", data.email);
+  sessionStorage.setItem("res-dedaci", true);
+
   if (!res.ok) throw new Error("Register unsuccessful");
-  return await res.json();
+  return data
 }
 
 export const loginUser = async (loginData) => {
@@ -23,7 +28,12 @@ export const loginUser = async (loginData) => {
   console.log(res);
 
   if (!res.ok) throw new Error("Login unsuccessful");
-  return await res.json();
+  const data = await res.json();
+
+  sessionStorage.setItem("user-email", data.email);
+  sessionStorage.setItem("res-dedaci", true);
+
+  return data;
 }
 
 export const isAuthenticated = () => {
@@ -32,15 +42,30 @@ export const isAuthenticated = () => {
   return sessionStorage.getItem("res-dedaci") === 'true';
 }
 
+export const getCurrentAuthUser = () => {
+
+  // reeturn true or false
+  return sessionStorage.getItem("user-email");
+}
+
 export const signOut = async () => {
-  // remove the res-dedaci
-  sessionStorage.removeItem('res-dedaci');
 
-  // remove the httpOnly jwt cookie
-  const res = await fetch("http://localhost:3000/api/users/logout", {
-    credentials: "include",
-    method: "POST",
-  })
+  try {
 
-  return res;
+    // remove the httpOnly jwt cookie
+    const res = await fetch("http://localhost:3000/api/users/logout", {
+      credentials: "include",
+      method: "POST",
+    })
+
+
+    console.log({ res })
+    sessionStorage.removeItem("res-dedaci");
+    sessionStorage.removeItem("user-email");
+    return true;
+
+  } catch (err) {
+    // throw new Error("Error signing out: ", err?.message)
+    return false;
+  }
 }
