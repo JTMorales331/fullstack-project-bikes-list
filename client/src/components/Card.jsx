@@ -1,9 +1,11 @@
 import React from "react";
 import { PropTypes } from "prop-types";
+import { Link } from "react-router-dom";
 
 Card.propTypes = {
   className: PropTypes.string,
   data: PropTypes.shape({
+    _id: PropTypes.string,
     bike_image: PropTypes.string,
     model: PropTypes.string,
     brand: PropTypes.string,
@@ -25,18 +27,14 @@ export default function Card({ className, data }) {
           data-holder-rendered="true"
         /> */}
         <div
-          className="overflow-hidden img-thumbnail d-flex align-items-center justify-content-center"
-          style={{ width: "100%", height: "14rem" }}
+          className="border rounded overflow-hidden"
+          style={{ width: "100%", height: "full" }}
         >
           <img
-            className="card-img-top p-3 object-fit-contain"
             src={data.bike_image}
-            alt={"image of " + data.model + " " + data.brand}
-            data-holder-rendered="true"
-            style={{
-              width: "100%",
-              height: "100%",
-            }}
+            alt={`${data.brand} ${data.model}`}
+            className="w-100 h-100 p-3"
+            style={{ objectFit: "cover" }} // apparently objectFit dooesn't exist in BS4
           />
         </div>
         <div className="card-body">
@@ -65,12 +63,13 @@ export default function Card({ className, data }) {
           </div>
           <div className="d-flex justify-content-between align-items-center w-100">
             <div className="btn-group w-100">
-              <button
+              <Link
                 type="button"
                 className="btn btn-sm btn-outline-secondary"
+                to={`bikes/${data._id}`}
               >
                 View
-              </button>
+              </Link>
               <button
                 type="button"
                 className="btn btn-sm btn-outline-secondary"

@@ -19,6 +19,9 @@ import Register from "./pages/Register.jsx";
 import Dummy from "./pages/Dummy.jsx";
 import Form from "./pages/CreateForm.jsx";
 import SignOut from "./pages/SignOut.jsx";
+import BikeDetails from "./pages/BikeDetails.jsx";
+import { getBikeById } from "./services/bikes.js";
+import ErrorBoundary from "./pages/ErrorBoundary.jsx";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +43,13 @@ const router = createBrowserRouter([
         // },
       },
       {
+        path: "bikes/:id",
+        element: <BikeDetails />,
+        // use loader for static content. no need for loader
+        loader: async ({ params }) => getBikeById(params.id),
+        errorElement: <ErrorBoundary />
+      },
+      {
         element: <UnAuthRoutes />,
         children: [
           { path: "sign-in", element: <SignIn /> },
@@ -53,6 +63,10 @@ const router = createBrowserRouter([
           { path: "bikes/create", element: <Form /> },
           // { path: "sign-out", element: <SignOut /> },
         ],
+      },
+      {
+        path: "*",
+        element: <ErrorBoundary />,
       },
     ],
   },

@@ -17,6 +17,23 @@ export const getBikes = async (query) => {
   }
 }
 
+export const getBikeById = async (id) => {
+  console.log({ id })
+  try {
+    const res = await fetch(`http://localhost:3000/api/bikes/${id}`)
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch bikes: ${res.status}`)
+    }
+
+    const data = await res.json()
+    console.log({ data })
+    return data
+  } catch (err) {
+    throw new Error("Retrieving of bikes unsuccessful: ", err)
+  }
+}
+
 export const postBike = async (data) => {
   try {
     const res = await fetch("http://localhost:3000/api/bikes/",
