@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../css/main.css";
 import "font-awesome/css/font-awesome.min.css";
 import { useQuery } from "@tanstack/react-query";
@@ -32,16 +32,23 @@ const Main = () => {
   //   });
   // }
 
+  const [query, setQuery] = useState("");
+
   const {
-    data: bikes,
+    data: bikes = [], // to avoid empty array (I think can not survive without TS due to edge cases detection)
     isPending,
+    isError, // WE NEED ISERROR
     error,
   } = useQuery({
-    queryKey: ["bikes"],
-    queryFn: () => getBikes().then((r) => r.json()),
+    queryKey: ["bikes", query],
+    queryFn: () => getBikes(query),
   });
 
   // const bikes = useLoaderData();
+
+  useEffect(() => {
+    console.log({ bikes });
+  }, [bikes]);
 
   return (
     <>
@@ -52,6 +59,9 @@ const Main = () => {
               type="text"
               className="form-control"
               placeholder="Search this site"
+              onChange={(e) => {
+                setQuery(e.target.value);
+              }}
             />
             <div className="input-group-append">
               <button className="btn btn-secondary" type="button">
@@ -67,18 +77,16 @@ const Main = () => {
           <div className="row">
             {/* {GetCards()} */}
             {isPending && <span>Loading...</span>}
-            {error && <span>Oops!</span>}
-            {bikes &&
-              bikes.map((card, index) => {
-                console.log(card);
-                return (
-                  <Card
-                    key={index}
-                    data={card}
-                    className="col-md-4"
-                  />
-                );
-              })}
+            {isError && <span>Oops! got an error: {error}</span>}
+            {!isPending && bikes &&
+              (bikes.length > 0 ? (
+                bikes.map((card, index) => {
+                  console.log(card);
+                  return <Card key={index} data={card} className="col-md-4" />;
+                })
+              ) : (
+                <span className="text-center">No bikes found in search</span>
+              ))}
           </div>
         </div>
       </div>

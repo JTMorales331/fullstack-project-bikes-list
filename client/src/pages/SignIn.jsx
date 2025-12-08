@@ -5,10 +5,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { loginUser } from "../services/authService";
 import { useEffect } from "react";
 
+
 const SignIn = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const lastPage = location;
+
 
   const queryClient = useQueryClient();
   const {
@@ -57,7 +59,10 @@ const SignIn = () => {
           className="form-control"
           placeholder="Email address"
           autoFocus
-          {...register("email", { required: "Email is required" })}
+          {...register("email", { required: "Email is required", pattern: {
+            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+            message: "Invalid email address"
+          } })}
         />
         {errors.email && (
           <div className="text-danger">{errors.email.message}</div>

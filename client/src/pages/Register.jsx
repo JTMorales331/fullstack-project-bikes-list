@@ -3,6 +3,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../services/authService";
+import { passwordStrength } from "check-password-strength";
+import { useEffect } from "react";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -30,6 +32,10 @@ export default function Register() {
       console.error("Register Error: ", err.message);
     },
   });
+
+  useEffect(() => {
+    console.log
+  }, [errors?.password])
 
   return (
     // first name, last name, email, and password
@@ -97,7 +103,14 @@ export default function Register() {
           className="form-control mb-0"
           placeholder="password"
           autoFocus
-          {...register("password", { required: "Password is required" })}
+          {...register("password", {
+            required: "Password is required",
+            validate: (value) => {
+              const pwd = passwordStrength(value);
+              if (pwd.id < 2)
+                return `Password is ${pwd.value.toString().toLowerCase()}`;
+            },
+          })}
         />
         {errors.password && (
           <div className="text-danger">{errors.password.message}</div>

@@ -101,4 +101,19 @@ const bikeSchema = new mongoose.Schema({
   }
 )
 
+
+// https://www.geeksforgeeks.org/mongodb/how-to-do-a-full-text-search-in-mongodb-using-mongoose/
+bikeSchema.index({
+  // brand: 'text',
+  brand: 1,
+  // model: 'text',
+  model: 1,
+})
+bikeSchema.index({
+  brand: 'text',
+  // brand: 1,
+  model: 'text',
+  // model: 1,
+})
+
 export default mongoose.model("Bike", bikeSchema)

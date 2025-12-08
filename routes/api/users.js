@@ -13,6 +13,8 @@ const router = express.Router();
 /* GET users listing. */
 router.get('/', verifyToken, async function (req, res, next) {
   try {
+
+
     const userData = await User.find().exec()
 
     if (!userData || !userData.length === 0) {

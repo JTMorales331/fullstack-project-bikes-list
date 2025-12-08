@@ -11,11 +11,37 @@ const router = express.Router()
 router.get("/", async (req, res) => {
 
   try {
-    const bikesData = await Bike.find().exec()
 
-    if (!bikesData || bikesData.length === 0) {
-      return res.status(404).json({ message: "No stuff found" });
+    const query = req.query?.q?.trim();
+    let filter = {};
+
+    if (query && query.length > 0) {
+      // I'll be honest I just discovered this portion via ai
+      // /\s+/ is basically
+      const queries = query.split(/\s+/);
+      console.log({queries})
+      
+      filter = {
+
+        // and is equivalent to saying:
+        // I want "Giant" to appear in either brand or model AND I want TCR to also
+        // appear in either brand or model
+        $and: queries.map(q => ({
+          $or: [
+            { brand: { $regex: q, $options: "i"}},
+            { model: { $regex: q, $options: "i"}}
+          ]
+        }))
+      }
     }
+
+    const bikesData = await Bike.find(filter)
+      .sort({brand: 1, model: 1})
+      .exec();
+    // it should be okay if there are not bikes found
+    // if (!bikesData || bikesData.length === 0) {
+    //   return res.status(404).json({ message: "No stuff found" });
+    // }
 
     res.status(200).json(bikesData);
   } catch (err) {
