@@ -1,36 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import "../css/main.css";
 import "font-awesome/css/font-awesome.min.css";
 import { useQuery } from "@tanstack/react-query";
 import Card from "../components/Card";
 import { useLoaderData } from "react-router-dom";
-import { getBikes } from "../services/bikes";
+import { getBikes, deleteBike } from "../services/bikes";
 
 const Main = () => {
-  // function GetCards() {
-  //   const { data, isPending, error } = useQuery({
-  //     queryKey: ["bikes"],
-  //     queryFn: () =>
-  //       fetch("http://localhost:3000/api/bikes").then((r) => r.json()),
-  //   });
-
-  //   if (isPending) return <span>Loading...</span>;
-  //   if (error) return <span>Oops!</span>;
-  //   // console.log({data})
-  //   return data.map((card, index) => {
-  //     console.log(card);
-  //     return (
-  //       <Card
-  //         key={index}
-  //         image={card.bike_image}
-  //         brand={card.brand}
-  //         model={card.model}
-  //         tags={card.tags}
-  //         className="col-md-4"
-  //       />
-  //     );
-  //   });
-  // }
 
   const [query, setQuery] = useState("");
 
@@ -45,10 +21,6 @@ const Main = () => {
   });
 
   // const bikes = useLoaderData();
-
-  useEffect(() => {
-    console.log({ bikes });
-  }, [bikes]);
 
   return (
     <>
@@ -78,11 +50,12 @@ const Main = () => {
             {/* {GetCards()} */}
             {isPending && <span>Loading...</span>}
             {isError && <span>Oops! got an error: {error}</span>}
-            {!isPending && bikes &&
+            {!isPending &&
+              bikes &&
               (bikes.length > 0 ? (
                 bikes.map((card, index) => {
                   console.log(card);
-                  return <Card key={index} data={card} className="col-md-4" />;
+                  return <Card key={card._id} data={card} className="col-md-4" />;
                 })
               ) : (
                 <span className="text-center">No bikes found in search</span>

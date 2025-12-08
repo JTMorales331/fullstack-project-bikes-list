@@ -21,7 +21,8 @@ export default function Register() {
   }
 
   const mutation = useMutation({
-    mutationFn: registerUser,
+    // mutationFn: (registerUser),
+    mutationFn: () => console.log("Deleted"),
     onSuccess: (responseBody) => {
       console.log("Register success!", responseBody);
 

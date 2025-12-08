@@ -10,7 +10,7 @@ export const getBikes = async (query) => {
     }
 
     const data = await res.json()
-    console.log({ data })
+    console.log("Refetched")
     return data
   } catch (err) {
     throw new Error("Retrieving of bikes unsuccessful: ", err)
@@ -45,7 +45,32 @@ export const postBike = async (data) => {
       }
     );
 
+    if (!res.ok) {
+      throw new Error(`Failed to post bike: ${res.status}`)
+    }
+
+
     return await res.json();
+
+  } catch (err) {
+    throw new Error("Bike post unsuccessful: " + err)
+  }
+}
+
+export const deleteBike = async (id) => {
+  try {
+    const res = await fetch(`http://localhost:3000/api/bikes/${id}`,
+      {
+        credentials: 'include',
+        method: "DELETE",
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error(`Failed to post bike: ${res.status}`)
+    }
+
+    return;
 
   } catch (err) {
     throw new Error("Bike post unsuccessful: " + err)
