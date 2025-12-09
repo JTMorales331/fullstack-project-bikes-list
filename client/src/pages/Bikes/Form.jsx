@@ -33,11 +33,11 @@ export default function BikeForm({
     formState: { errors },
   } = useForm({
     defaultValues,
-    mode: "all"
+    mode: "all",
     // the different validation trigger modes:
     // "onChange" = only on change
     // "onSubmit" = default only on submit
-    // "onBlur" = validation on blur 
+    // "onBlur" = validation on blur
   });
 
   const closeModalRef = useRef(null);
@@ -95,7 +95,6 @@ export default function BikeForm({
   const handleFormSubmit = (data) => {
     setPendingData(data);
 
-
     // Validate specific field
     // trigger("brand");
 
@@ -133,6 +132,14 @@ export default function BikeForm({
                   autoFocus
                   {...register("brand", {
                     required: "Brand is required",
+                    minLength: {
+                      value: 2,
+                      message: "Must be atleast 3 characters",
+                    },
+                    maxLength: {
+                      value: 100,
+                      message: "Must be at most 100 characters",
+                    },
                     onChange: () => clearErrors("brand"),
                   })}
                 />
@@ -153,6 +160,14 @@ export default function BikeForm({
                   placeholder="TCR Advanced"
                   {...register("model", {
                     required: "Model is required",
+                    minLength: {
+                      value: 3,
+                      message: "Must be atleast 3 characters",
+                    },
+                    maxLength: {
+                      value: 100,
+                      message: "Must be at most 100 characters",
+                    },
                     onChange: () => clearErrors("model"),
                   })}
                 />
@@ -194,6 +209,14 @@ export default function BikeForm({
                   placeholder="Black / Blue"
                   {...register("color", {
                     required: "Color is required",
+                    minLength: {
+                      value: 3,
+                      message: "Must be atleast 3 characters",
+                    },
+                    maxLength: {
+                      value: 100,
+                      message: "Must be at most 100 characters",
+                    },
                     onChange: () => clearErrors("color"),
                   })}
                 />
@@ -204,7 +227,7 @@ export default function BikeForm({
               {/* price */}
               <div className="col-md-4 mb-3">
                 <label htmlFor="color" className="form-label">
-                  Price
+                  Price $
                 </label>
                 <input
                   type="text"
@@ -213,6 +236,11 @@ export default function BikeForm({
                   placeholder="6799"
                   {...register("price", {
                     required: "Price is required",
+                    min: {
+                      value: 0,
+                      message: "Must be atleast 0"
+                    },
+
                     onChange: () => clearErrors("price"),
                   })}
                 />

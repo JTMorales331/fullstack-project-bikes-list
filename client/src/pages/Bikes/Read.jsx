@@ -109,8 +109,8 @@ export default function Details() {
               <button
                 type="button"
                 className="btn btn-danger"
-                data-toggle="modal"
-                data-target="#deleteModal"
+                  data-toggle="modal"
+                  data-target="#deleteModal"
                 ref={openModalRef}
                 // onClick={handleClick}
               >
