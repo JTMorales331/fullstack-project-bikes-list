@@ -92,12 +92,13 @@ export default function Card({ className, data }) {
                 >
                   View
                 </Link>
-                <button
+                <Link
                   type="button"
                   className="btn btn-sm btn-outline-secondary"
+                  to={`bikes/${data._id}/edit`}
                 >
                   Edit
-                </button>
+                </Link>
                 <button
                   type="button"
                   className="btn btn-sm btn-outline-secondary"
