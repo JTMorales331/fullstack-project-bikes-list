@@ -16,12 +16,18 @@ import {
 import Main from "./pages/Main.jsx";
 import SignIn from "./pages/SignIn.jsx";
 import Register from "./pages/Register.jsx";
-import Dummy from "./pages/Dummy.jsx";
-import Form from "./pages/CreateForm.jsx";
-import SignOut from "./pages/SignOut.jsx";
-import BikeDetails from "./pages/BikeDetails.jsx";
-import { getBikeById } from "./services/bikes.js";
+
+// Bikes
+import CreateBike from "./pages/Bikes/Create.jsx";
+import BikeDetails from "./pages/Bikes/Read.jsx";
+import UpdateBike from "./pages/Bikes/Update.jsx";
+
+// Misc
 import ErrorBoundary from "./pages/ErrorBoundary.jsx";
+
+// services
+import { getBikeById } from "./services/bikes.js";
+
 
 const queryClient = new QueryClient();
 
@@ -33,14 +39,6 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Main />,
-        // loader: async () => {
-        //   try {
-        //     const response = await fetch("http://localhost:3000/api/bikes");
-        //     return response.json();
-        //   } catch (err) {
-        //     throw new Error(err.message || "Failed to load the bikes")
-        //   }
-        // },
       },
       {
         path: "bikes/:id",
@@ -60,7 +58,13 @@ const router = createBrowserRouter([
         element: <ProtectedRoutes />,
         children: [
           // { path: "dummy", element: <Dummy /> },
-          { path: "bikes/create", element: <Form /> },
+          { path: "bikes/create", element: <CreateBike /> },
+          { 
+            path: "bikes/:id/edit",
+            element: <UpdateBike />,
+            loader: async ({params}) => getBikeById(params.id),
+            errorElement: <ErrorBoundary />
+          },
           // { path: "sign-out", element: <SignOut /> },
         ],
       },

@@ -1,4 +1,4 @@
-import {useRef} from "react";
+import { useRef } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { PropTypes } from "prop-types";
 import { Link } from "react-router-dom";
@@ -17,8 +17,7 @@ Card.propTypes = {
 };
 
 export default function Card({ className, data }) {
-
-  const closeModalRef = useRef(null)
+  const closeModalRef = useRef(null);
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -28,21 +27,21 @@ export default function Card({ className, data }) {
 
       // makes cached bikes as invalid so refetches them via useQuery
       // https://tanstack.com/query/v5/docs/framework/react/guides/query-invalidation
-      queryClient.invalidateQueries({queryKey: ["bikes"]})
+      queryClient.invalidateQueries({ queryKey: ["bikes"] });
     },
     onError: (err) => {
       console.error("Register Error: ", err.message);
     },
-  })
+  });
 
   const handleDelete = (e) => {
-    e.preventDefault()
-    mutation.mutate(data._id)
-  }
+    e.preventDefault();
+    mutation.mutate(data._id);
+  };
   return (
     <>
-      <div className={className}>
-        <div className="card mb-4 box-shadow">
+      <div className={`${className} mb-4`}>
+        <div className="card mb-4 box-shadow h-100 d-flex flex-column">
           {/* <img
           className="card-img-top"
           data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail"
@@ -59,23 +58,21 @@ export default function Card({ className, data }) {
               src={data.bike_image}
               alt={`${data.brand} ${data.model}`}
               className="w-100 h-100 p-3"
-              style={{ objectFit: "cover" }} // apparently objectFit dooesn't exist in BS4
+              style={{ objectFit: "contain" }} // apparently objectFit dooesn't exist in BS4
             />
           </div>
-          <div className="card-body">
+
+          <div className="card-body d-flex flex-column flex-grow-1">
             <div className="mb-3">
               <h4 className="">{data.model}</h4>
-              {/* <div className="d-flex align-items-center gap-2">
-              <h5 className="text-secondary m-0">{data.brand}</h5>
-              <small className="text-muted m-0">$ {data.price}</small>
-              </div> */}
+
               <h5 className="text-secondary m-0">{data.brand}</h5>
             </div>
-            {/* <p className="card-text">
-            This is a wider card with supporting text below as a natural lead-in
-            to additional content. This content is a little bit longer.
-          </p> */}
-            <div className="mb-4 d-flex flex-wrap">
+
+            <div className="mb-2 d-flex flex-wrap overflow-auto" style={{
+              // maxHeight: "3.75rem",
+              scrollbarWidth: "thin"
+            }}>
               {data.tags &&
                 data.tags.map((tag, idx) => (
                   <span
@@ -86,7 +83,7 @@ export default function Card({ className, data }) {
                   </span>
                 ))}
             </div>
-            <div className="d-flex justify-content-between align-items-center w-100">
+            <div className="mt-auto d-flex justify-content-between align-items-center w-100">
               <div className="btn-group w-100">
                 <Link
                   type="button"

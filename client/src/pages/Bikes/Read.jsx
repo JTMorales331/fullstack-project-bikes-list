@@ -1,10 +1,11 @@
-import { useMutation } from "@tanstack/react-query";
-import { useRef, useEffect } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRef } from "react";
 import { useLoaderData, Link, useNavigate } from "react-router-dom";
-import { deleteBike } from "../services/bikes";
+import { deleteBike } from "../../services/bikes";
 
-export default function BikeDetails() {
+export default function Details() {
   // tried using react-router's loader and errorElement
+  const queryClient = useQueryClient();
   const bike = useLoaderData();
 
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ export default function BikeDetails() {
       console.log("Register success!", responseBody);
 
       closeModalRef.current?.click();
+      queryClient.invalidateQueries({queryKey: ["bikes"]})
       navigate("/");
     },
     onError: (err) => {
@@ -103,14 +105,14 @@ export default function BikeDetails() {
             </div>
 
             <div className="mt-4">
-              <button className="btn btn-primary mr-2">Edit</button>
+              <Link to={`edit`} className="btn btn-primary mr-2">Edit</Link>
               <button
                 type="button"
                 className="btn btn-danger"
                 data-toggle="modal"
                 data-target="#deleteModal"
                 ref={openModalRef}
-                onClick={handleClick}
+                // onClick={handleClick}
               >
                 Delete
               </button>
@@ -126,7 +128,7 @@ export default function BikeDetails() {
         tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
-        ref={modalRef}
+        // ref={modalRef}
       >
         <div className="modal-dialog modal-dialog-centered">
           <form className="modal-content" onSubmit={handleDelete}>

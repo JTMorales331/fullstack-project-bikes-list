@@ -57,6 +57,30 @@ export const postBike = async (data) => {
   }
 }
 
+
+export const updateBike = async (id, data) => {
+  try {
+    const res = await fetch(`http://localhost:3000/api/bikes/${id}`,
+      {
+        credentials: 'include',
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: { "Content-type": "application/json" },
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error(`Failed to post bike: ${res.status}`)
+    }
+
+
+    return await res.json();
+
+  } catch (err) {
+    throw new Error("Bike post unsuccessful: " + err)
+  }
+}
+
 export const deleteBike = async (id) => {
   try {
     const res = await fetch(`http://localhost:3000/api/bikes/${id}`,
