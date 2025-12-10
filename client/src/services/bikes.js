@@ -1,12 +1,14 @@
+const url = import.meta.env.VITE_API_URL
+
 export const getBikes = async (query) => {
   console.log({ query })
   try {
     let res = ""
     if (query.trim() !== "") {
-      res = await fetch(`http://localhost:3000/api/bikes?${new URLSearchParams({ q: query })}`)
+      res = await fetch(`${url}/bikes?${new URLSearchParams({ q: query })}`)
     } else {
 
-      res = await fetch(`http://localhost:3000/api/bikes`)
+      res = await fetch(`${url}/bikes`)
     }
 
     const data = await res.json()
@@ -20,7 +22,7 @@ export const getBikes = async (query) => {
 export const getBikeById = async (id) => {
   console.log({ id })
   try {
-    const res = await fetch(`http://localhost:3000/api/bikes/${id}`)
+    const res = await fetch(`${url}/bikes/${id}`)
 
     if (!res.ok) {
       throw new Error(`Failed to fetch bikes: ${res.status}`)
@@ -36,7 +38,7 @@ export const getBikeById = async (id) => {
 
 export const postBike = async (data) => {
   try {
-    const res = await fetch("http://localhost:3000/api/bikes/",
+    const res = await fetch(`${url}/bikes/`,
       {
         credentials: 'include',
         method: "POST",
@@ -60,7 +62,7 @@ export const postBike = async (data) => {
 
 export const updateBike = async (id, data) => {
   try {
-    const res = await fetch(`http://localhost:3000/api/bikes/${id}`,
+    const res = await fetch(`${url}/api/bikes/${id}`,
       {
         credentials: 'include',
         method: "PUT",
@@ -83,7 +85,7 @@ export const updateBike = async (id, data) => {
 
 export const deleteBike = async (id) => {
   try {
-    const res = await fetch(`http://localhost:3000/api/bikes/${id}`,
+    const res = await fetch(`${url}/bikes/${id}`,
       {
         credentials: 'include',
         method: "DELETE",

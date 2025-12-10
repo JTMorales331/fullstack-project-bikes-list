@@ -1,7 +1,7 @@
-
+const url = import.meta.env.VITE_API_URL
 
 export const registerUser = async (registerData) => {
-  const res = await fetch("http://localhost:3000/api/users/register", {
+  const res = await fetch(`${url}/users/register`, {
     credentials: 'include',
     method: "POST",
     body: JSON.stringify(registerData),
@@ -20,7 +20,7 @@ export const registerUser = async (registerData) => {
 }
 
 export const loginUser = async (loginData) => {
-  const res = await fetch("http://localhost:3000/api/users/login", {
+  const res = await fetch(`${url}/users/login`, {
     credentials: 'include',
     method: "POST",
     body: JSON.stringify(loginData),
@@ -55,7 +55,7 @@ export const signOut = async () => {
   try {
 
     // remove the httpOnly jwt cookie
-    const res = await fetch("http://localhost:3000/api/users/logout", {
+    const res = await fetch(`${url}/users/logout`, {
       credentials: "include",
       method: "POST",
     })
