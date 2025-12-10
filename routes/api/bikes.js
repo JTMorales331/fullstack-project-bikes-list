@@ -2,8 +2,11 @@ import express from "express"
 import { v4 as uuidv4 } from "uuid"
 import b from "../../artifacts/json-server-test.json" with { type: "json" }
 import { verifyToken } from "../../middleware/Authentication.js"
+import NodeCache from "node-cache"
 
 import Bike from "../../models/bike.js"
+
+const cache = new NodeCache();
 
 const router = express.Router()
 
@@ -12,15 +15,40 @@ router.get("/", async (req, res) => {
 
   try {
 
-    const query = req.query?.q?.trim();
+    const query = req.query?.q?.trim().toLowerCase();
+
+    // I'll be honest I just discovered this portion via ai
+    // /\s+/ is basically
+    const queries = query ? query.split(/\s+/) : [];
+    console.log(queries)
+    let cacheKey;
+
+    if (queries && queries.length > 0) {
+      // sort this
+      const sortedWordsQuery = queries.sort().join("_")
+      console.log(sortedWordsQuery)
+      // cache section
+      // basically so that we can just use the same cache whether "Giant TCR" or "TCR Giant"
+      cacheKey = `search_${encodeURIComponent(sortedWordsQuery)}`;
+    } else {
+      cacheKey = "all_bikes"
+    }
+
+
+    // get the cache based on cache key
+    const cached = cache.get(cacheKey)
+
+    // return the cache data
+    if (cached) {
+      console.log("Cache hit: ", cacheKey)
+      return res.status(200).json(cached)
+    }
+
     let filter = {};
 
     if (query && query.length > 0) {
-      // I'll be honest I just discovered this portion via ai
-      // /\s+/ is basically
-      const queries = query.split(/\s+/);
-      console.log({queries})
-      
+
+
       filter = {
 
         // and is equivalent to saying:
@@ -28,23 +56,24 @@ router.get("/", async (req, res) => {
         // appear in either brand or model
         $and: queries.map(q => ({
           $or: [
-            { brand: { $regex: q, $options: "i"}},
-            { model: { $regex: q, $options: "i"}}
+            { brand: { $regex: q, $options: "i" } },
+            { model: { $regex: q, $options: "i" } }
           ]
         }))
       }
     }
 
     const bikesData = await Bike.find(filter)
-      .sort({brand: 1, model: 1})
+      .sort({ brand: 1, model: 1 })
       .exec();
-    // it should be okay if there are not bikes found
-    // if (!bikesData || bikesData.length === 0) {
-    //   return res.status(404).json({ message: "No stuff found" });
-    // }
+
+    // set the new bikes data and replace the cacheKey, 30 seconds
+    const time = bikesData.length > 0 ? 30 : 0;
+    cache.set(cacheKey, bikesData, time);
 
     res.status(200).json(bikesData);
   } catch (err) {
+    console.log("error: ", err)
     res.status(500).json({ message: "Server error: ", err })
   }
 })
@@ -55,12 +84,25 @@ router.get("/:id", async (req, res) => {
     // const id = Bike.find((item) => {
     //   return item.id === req.params.id
     // })
-
     const id = req.params.id
+
+    const cacheKey = `bike_id_${id}`
+
+    const cached = cache.get(cacheKey)
+
+    if (cached) {
+      console.log("Cache hit: ", cacheKey)
+      return res.status(200).json(cached)
+    }
+
     const bikeData = await Bike.findById(id).exec()
 
     if (!bikeData || bikeData === null) {
       return res.status(404).json({ message: "Record not found" })
+    }
+
+    if (bikeData) {
+      cache.set(cacheKey, bikeData, 120)
     }
 
     res.status(200).json(bikeData)
