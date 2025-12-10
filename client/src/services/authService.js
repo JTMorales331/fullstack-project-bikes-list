@@ -1,22 +1,27 @@
 const url = import.meta.env.VITE_API_URL
 
 export const registerUser = async (registerData) => {
-  const res = await fetch(`${url}/users/register`, {
-    credentials: 'include',
-    method: "POST",
-    body: JSON.stringify(registerData),
-    headers: { "Content-type": "application/json" },
-  });
+  try {
+    const res = await fetch(`${url}/users/register`, {
+      credentials: 'include',
+      method: "POST",
+      body: JSON.stringify(registerData),
+      headers: { "Content-type": "application/json" },
+    });
 
-  console.log(res);
+    console.log(res);
 
-  if (!res.ok) throw new Error("Login unsuccessful");
-  const data = await res.json();
-  sessionStorage.setItem("user-email", data.email);
-  sessionStorage.setItem("res-dedaci", true);
+    if (!res.ok) throw new Error("Login unsuccessful");
+    const data = await res.json();
+    sessionStorage.setItem("user-email", data.email);
+    sessionStorage.setItem("res-dedaci", true);
 
-  if (!res.ok) throw new Error("Register unsuccessful");
-  return data
+    if (!res.ok) throw new Error("Register unsuccessful");
+    return data
+
+  } catch (err) {
+    console.error("error!: ", err)
+  }
 }
 
 export const loginUser = async (loginData) => {
