@@ -62,7 +62,7 @@ export const postBike = async (data) => {
 
 export const updateBike = async (id, data) => {
   try {
-    const res = await fetch(`${url}/api/bikes/${id}`,
+    const res = await fetch(`${url}/bikes/${id}`,
       {
         credentials: 'include',
         method: "PUT",
